@@ -1,0 +1,25 @@
+<div class="panel-body">
+    <div class="row" id="">    
+      <br>
+      <div class="col-md-2 col-sm-3 text-center">
+        <a class="story-title" href="#"><img [alt]="" [src]="book.image" style="width:100px;height:100px" class="img-circle"></a>
+      </div>
+      <div class="col-md-10 col-sm-9">
+        <h3>{{ book.title }}</h3>
+        <div class="row">
+          <div class="col-xs-9">
+            <h4><span class="label label-default">{{ book.author }}</span></h4><h4>
+            <!-- <small style="font-family:courier,'new courier';" class="text-muted">{{book.genre}}  • <a *ngIf="_auth.loggedIn()" (click)="getBook(book)" class="text-muted">Read More</a></small> -->
+            <small style="font-family:courier,'new courier';" class="text-muted">{{ book.genre }}</small>
+            </h4></div>
+          <div class="col-xs-3"></div>
+        </div>
+        <br><br>
+      </div>
+    </div>
+  </div>
+    <hr>
+
+    <a *ngIf="_auth.loggedIn()" (click)="getBooks()" class="btn btn-primary pull-right btnNext">Back <i class="fa fa-hand-o-left"></i></a>
+    <a *ngIf="_auth.loggedIn()" (click)="editBook(book)" class="btn btn-primary pull-right btnNext">Edit <i class="fa fa-pencil"></i></a>
+    <a *ngIf="_auth.loggedIn()"(click)="deleteBook(book)" class="btn btn-primary pull-right btnNext">Delete <i class="fa fa-trash"></i></a>    

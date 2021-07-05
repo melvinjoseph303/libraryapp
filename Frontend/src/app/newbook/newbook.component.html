@@ -1,0 +1,65 @@
+<<div class="container-fluid text-center">    
+    <div class="row content">
+      <div class="col-sm-3 sidenav">
+        <!-- <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p>
+        <p><a href="#">Link</a></p> -->
+      </div>
+      <div class="col-sm-6 text-left"> 
+        <!-- <h1>Welcome</h1> -->
+        <form class="form-horizontal" (ngSubmit)="AddBook()" enctype="multipart/form-data">
+          
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Title:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="title" id="inputtitle" placeholder="Enter title" [(ngModel)]="bookItem.title" required>
+              <label for="emailerror" id="emailerror" class="form-label"></label>
+            </div>        
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Author:</label>
+            <div class="col-sm-10">          
+              <input type="text" class="form-control" name="author" id="author-input" placeholder="Enter author's name" [(ngModel)]="bookItem.author" required>
+              <label for="authorerror" id="authorerror" class="form-label"></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Genre:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="genre" id="inputgenre" placeholder="Enter genre" [(ngModel)]="bookItem.genre" required>
+              <label for="genreerror" id="genreerror" class="form-label"></label>
+            </div>        
+          </div>
+          <!-- <form action="/file_upload" method="POST" enctype="multipart/form-data"> -->
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">ImageUrl:</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="image" id="inputfile" placeholder="Enter imageurl" [(ngModel)]="bookItem.image" required>
+              <!-- <input type="file" class="form-control" name="file" id="inputfile" [(ngModel)]="bookItem.image" required> -->
+              <label for="fileerror" id="fileerror" class="form-label"></label>
+            </div>        
+          </div>
+          <!-- <input type="submit" value="Upload File" />
+          </form> -->
+          <div class="form-group">        
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-info">Submit</button>
+            </div>
+          </div>
+          
+  
+        </form>
+      </div>
+      <div class="col-sm-3 sidenav">
+        <!-- <div class="well">
+          <p>ADS</p>
+        </div>
+        <div class="well">
+          <p>ADS</p>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
