@@ -7,12 +7,12 @@
       </div>
       <div class="col-sm-6 text-left"> 
         <!-- <h1>Welcome</h1> -->
-        <form class="form-horizontal" (ngSubmit)="editBook()" enctype="multipart/form-data">
+        <form class="form-horizontal" [formGroup]="addbookForm" (ngSubmit)="editBook()" method="POST" enctype="multipart/form-data">
           
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">Title:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="title" id="inputtitle" placeholder="Enter title" [(ngModel)]="bookItem.title" required>
+              <input type="text" class="form-control" formControlName="title" name="title" id="inputtitle" placeholder="Enter title" [(ngModel)]="bookItem.title" required>
               <label for="emailerror" id="emailerror" class="form-label"></label>
             </div>        
           </div>
@@ -20,7 +20,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Author:</label>
             <div class="col-sm-10">          
-              <input type="text" class="form-control" name="author" id="author-input" placeholder="Enter author's name" [(ngModel)]="bookItem.author" required>
+              <input type="text" class="form-control" formControlName="author" name="author" id="author-input" placeholder="Enter author's name" [(ngModel)]="bookItem.author" required>
               <label for="authorerror" id="authorerror" class="form-label"></label>
             </div>
           </div>
@@ -28,7 +28,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">Genre:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="genre" id="inputgenre" placeholder="Enter genre" [(ngModel)]="bookItem.genre" required>
+              <input type="text" class="form-control" formControlName="genre" name="genre" id="inputgenre" placeholder="Enter genre" [(ngModel)]="bookItem.genre" required>
               <label for="genreerror" id="genreerror" class="form-label"></label>
             </div>        
           </div>
@@ -37,14 +37,16 @@
             <label class="control-label col-sm-2" for="email">File:</label>
             <div class="col-sm-10">
               <!-- <input type="file" class="form-control" name="file" id="inputfile" [(ngModel)]="bookItem.image" required> -->
-              <input type="text" class="form-control" name="file" id="inputfile" placeholder="Enter image url" [(ngModel)]="bookItem.image" required>
+              <input type="text" class="form-control" formControlName="image" name="image" id="inputfile" placeholder="Enter image url" [(ngModel)]="bookItem.image" required>
               <label for="fileerror" id="fileerror" class="form-label"></label>
             </div>        
           </div>
           
           <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-info">Submit</button>
+              <!-- <button type="submit" class="btn btn-info">Submit</button> -->
+              <input class="button-primary" type="submit" [disabled]="addbookForm.pristine || addbookForm.invalid"
+            value="Submit" id="addsubmit">
               <!-- <a href="/books/<%=book._id%>" class="btn btn-primary pull-right btnNext">Cancel</a> -->
             <!-- <a *ngIf="_auth.loggedIn()" (click)="getBook(book)" class="btn btn-primary pull-right btnNext">Cancel</a> -->
             </div>

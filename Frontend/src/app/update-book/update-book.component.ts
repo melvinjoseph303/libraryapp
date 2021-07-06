@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BookService } from '../bookservice.service';
 @Component({
@@ -14,7 +16,7 @@ export class UpdateBookComponent implements OnInit {
     genre:'',
     image:''}
  
-  constructor(private router:Router,private bookService:BookService) { }
+  constructor(private fb: FormBuilder,private router:Router,private bookService:BookService) { }
 
   ngOnInit(): void {
     let bookId = localStorage.getItem("editBookId");
@@ -22,6 +24,16 @@ export class UpdateBookComponent implements OnInit {
       this.bookItem=JSON.parse(JSON.stringify(data));
   })
   }
+
+  addbookForm = this.fb.group(
+    {
+      title: ['', Validators.required],
+      author: ['', Validators.required],
+      genre: ['', Validators.required],
+      image: ['', Validators.required]
+    }
+  )
+
   editBook()
   {    
     this.bookService.editBook(this.bookItem);   
