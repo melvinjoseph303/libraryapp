@@ -7,12 +7,12 @@
       </div>
       <div class="col-sm-6 text-left"> 
         <!-- <h1>Welcome</h1> -->
-        <form class="form-horizontal" (ngSubmit)="AddAuthor()" enctype="multipart/form-data">
+        <form class="form-horizontal" [formGroup]="addauthorForm" (ngSubmit)="AddAuthor()" method="POST" enctype="multipart/form-data">
           
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">Name:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="title" id="inputtitle" placeholder="Enter name" [(ngModel)]="authorItem.name" required>
+              <input type="text" class="form-control" formControlName="name" name="name" id="inputtitle" placeholder="Enter name" [(ngModel)]="authorItem.name" required>
               <label for="emailerror" id="emailerror" class="form-label"></label>
             </div>        
           </div>
@@ -20,7 +20,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Age:</label>
             <div class="col-sm-10">          
-              <input type="text" class="form-control" name="author" id="author-input" placeholder="Enter author's age" [(ngModel)]="authorItem.age" required>
+              <input type="text" class="form-control" formControlName="age" name="age" id="author-input" placeholder="Enter author's age" [(ngModel)]="authorItem.age" required>
               <label for="authorerror" id="authorerror" class="form-label"></label>
             </div>
           </div>
@@ -28,7 +28,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">Type:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="genre" id="inputgenre" placeholder="Enter type" [(ngModel)]="authorItem.type" required>
+              <input type="text" class="form-control" formControlName="type" name="type" id="inputgenre" placeholder="Enter type" [(ngModel)]="authorItem.type" required>
               <label for="genreerror" id="genreerror" class="form-label"></label>
             </div>        
           </div>
@@ -36,7 +36,7 @@
           <div class="form-group">
             <label class="control-label col-sm-2" for="email">ImageUrl:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="image" id="inputfile" placeholder="Enter imageurl" [(ngModel)]="authorItem.image" required>
+              <input type="text" class="form-control" formControlName="image" name="image" id="inputfile" placeholder="Enter imageurl" [(ngModel)]="authorItem.image" required>
               <!-- <input type="file" class="form-control" name="file" id="inputfile" [(ngModel)]="bookItem.image" required> -->
               <label for="fileerror" id="fileerror" class="form-label"></label>
             </div>        
@@ -45,7 +45,9 @@
           </form> -->
           <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
-              <button type="submit" class="btn btn-info">Submit</button>
+              <!-- <button type="submit" class="btn btn-info">Submit</button> -->
+              <input class="button-primary" type="submit" value="Submit"
+            [disabled]="addauthorForm.pristine || addauthorForm.invalid" id="addsubmit">
             </div>
           </div>
           

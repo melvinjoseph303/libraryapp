@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAuthor } from '../authormodel';
 import { AuthorService } from '../authorservice.service'
 import { Router } from '@angular/router';
@@ -10,13 +12,21 @@ import { Router } from '@angular/router';
 })
 export class NewauthorComponent implements OnInit {
 
-  constructor(private authorService: AuthorService,private router: Router){  } 
+  constructor(private fb: FormBuilder,private authorService: AuthorService,private router: Router){  } 
   authorItem= {
     name:'',
     age:'',
     type:'',
      image:''}
  // productItem: IProduct;
+ addauthorForm = this.fb.group(
+  {
+    name: ['', Validators.required],
+    age: ['', Validators.required],
+    type: ['', Validators.required],
+    image: ['', Validators.required]
+  }
+)
   ngOnInit() {
   }
   AddAuthor()
