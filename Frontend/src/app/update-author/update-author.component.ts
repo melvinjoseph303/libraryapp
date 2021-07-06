@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthorService } from '../authorservice.service';
 
@@ -15,7 +17,7 @@ export class UpdateAuthorComponent implements OnInit {
     type:'',
     image:''}
  
-  constructor(private router:Router,private authorService:AuthorService) { }
+  constructor(private fb: FormBuilder,private router:Router,private authorService:AuthorService) { }
 
   ngOnInit(): void {
     let authorId = localStorage.getItem("editAuthorId");
@@ -23,6 +25,16 @@ export class UpdateAuthorComponent implements OnInit {
       this.authorItem=JSON.parse(JSON.stringify(data));
   })
   }
+
+  addauthorForm = this.fb.group(
+    {
+      name: ['', Validators.required],
+      age: ['', Validators.required],
+      type: ['', Validators.required],
+      image: ['', Validators.required]
+    }
+  )
+
   editAuthor()
   {    
     this.authorService.editAuthor(this.authorItem);   
