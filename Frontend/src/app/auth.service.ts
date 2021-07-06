@@ -24,4 +24,9 @@ export class AuthService {
   {
     return localStorage.getItem('token')
   }
+  getUser()
+  {
+    console.log(localStorage.getItem('role'))
+    return localStorage.getItem('role')
+  }
 }

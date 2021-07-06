@@ -17,6 +17,8 @@ import { AuthorsComponent } from './authors/authors.component';
 import { NewauthorComponent } from './newauthor/newauthor.component';
 import { UpdateAuthorComponent } from './update-author/update-author.component';
 import { HomeComponent } from './home/home.component';
+import { SignupComponent } from './signup/signup.component';
+//import { AuthorComponent } from './author/author.component';
 //import { BookComponent } from './book/book.component';
 // import { HomeComponent } from './home/home.component';
 
@@ -31,7 +33,8 @@ import { HomeComponent } from './home/home.component';
     AuthorsComponent,
     NewauthorComponent,
     UpdateAuthorComponent,
-    HomeComponent
+    HomeComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

@@ -20,8 +20,8 @@
         </li>
         <li><a *ngIf="_auth.loggedIn()" (click)="displayBooks()">Books</a></li>
         <li><a *ngIf="_auth.loggedIn()" (click)="displayAuthors()">Authors</a></li>
-        <li><a *ngIf="_auth.loggedIn()" (click)="displayAddbook()">Add Book</a></li>
-        <li><a *ngIf="_auth.loggedIn()" (click)="displayAddauthor()">Add Author</a></li>
+        <li><a *ngIf="_auth.loggedIn() && _auth.getUser()=='admin'" (click)="displayAddbook()">Add Book</a></li>
+        <li><a *ngIf="_auth.loggedIn() && _auth.getUser()=='admin'" (click)="displayAddauthor()">Add Author</a></li>
         <!-- <li><a *ngIf="_auth.loggedIn()" (click)="loggedUser()">Add Author</a></li> -->
         <li><a *ngIf="_auth.loggedIn()" (click)="logoutUser()">Logout</a></li>
 
