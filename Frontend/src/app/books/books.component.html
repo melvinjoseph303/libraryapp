@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-xs-9">
             <h4><span class="label label-default">{{ book.author }}</span></h4><h4>
-            <small style="font-family:courier,'new courier';" class="text-muted">{{book.genre}}  • <a *ngIf="_auth.loggedIn()" (click)="editBook(book)" class="text-muted">Edit</a>  • <a *ngIf="_auth.loggedIn()" (click)="deleteBook(book)" class="text-muted">Delete</a></small>
+            <small style="font-family:courier,'new courier';" class="text-muted">{{book.genre}}  • <a *ngIf="_auth.loggedIn() && _auth.getUser()=='admin'" (click)="editBook(book)" class="text-muted">Edit</a>  • <a *ngIf="_auth.loggedIn() && _auth.getUser()=='admin'" (click)="deleteBook(book)" class="text-muted">Delete</a></small>
             <!-- <small style="font-family:courier,'new courier';" class="text-muted">{{ book.genre }}</small> -->
             </h4></div>
           <div class="col-xs-3"></div>
