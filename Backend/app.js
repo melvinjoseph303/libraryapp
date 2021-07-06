@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 const BookData = require('./src/model/Bookdata');
 const AuthorData = require('./src/model/Authordata');
 //const User = require('./src/model/user');
@@ -12,6 +13,19 @@ app.use(bodyparser.json());
 username='admin';
 password='1234';
 
+
+app.use(session({      //session creation
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Acess-Control-Allow-Methods:GET,POST,PATCH,PUT,DELETE,OPTIONS");
+  next();
+});
 
 function verifyToken(req, res, next) {
     if(!req.headers.authorization) {
@@ -29,7 +43,8 @@ function verifyToken(req, res, next) {
     next()
   }
 
-  app.get('/',function(req,res){  
+  //app.get('/',function(req,res){  
+    app.get('/',verifyToken,function(req,res){
      res.send(home);
 });
 
@@ -70,20 +85,75 @@ app.post('/login', (req, res) => {
     let userData = req.body
     
       
-        if (!username) {
-          res.status(401).send('Invalid Username')
-        } else 
-        if ( password !== userData.password) {
-          res.status(401).send('Invalid Password')
-        } else {
-          let payload = {subject: username+password}
-          let token = jwt.sign(payload, 'secretKey')
-          res.status(200).send({token})
-        }
+    //     if (!username) {
+    //       res.status(401).send('Invalid Username')
+    //     } else 
+    //     if ( password !== userData.password) {
+    //       res.status(401).send('Invalid Password')
+    //     } else {
+    //       let payload = {subject: username+password}
+    //       let token = jwt.sign(payload, 'secretKey')
+    //       res.status(200).send({token})
+    //     }
       
+    // })
+
+    let username = req.body.username;
+    let password = req.body.password;
+
+    // check for user
+    if (username == 'admin' && password == '1234') {
+        req.session.role = 'admin';
+        console.log("admin logined successfully")
+        let payload = { subject: username + password, admin:true }
+        let token = jwt.sign(payload, 'secretKey')
+        res.send({ status: true, token, role: req.session.role });
+
+    } else {
+      User.findOne({ Username: username, Password: password }, function (err, user) {
+            console.log(req.body, "check for user");
+            if (err) {
+                res.send({ status: false, data: 'Response error. No Internet' });
+            }
+            else if (user) {
+                console.log("normal user login success")
+                req.session.role = 'user';
+                let payload = { subject: username + password,admin:false}
+                let token = jwt.sign(payload, 'secretKey')
+                res.send({ status: true, token, role: req.session.role })
+                console.log({ status: true, token, role: 'user' })
+            } else {
+                res.send({ status: false, data: 'NOT FOUND' });
+            }
+            console.log("user data", user)
+        });
+    }
+});
+
+//new user
+
+app.post('/signup', function (req, res) {
+    let item = {
+
+        Username: req.body.user.username,
+        Password: req.body.user.password
+
+
+    }
+
+    let user = User(item);
+    user.save().then(function (data) {
+        res.send(true);
+    }).catch(function (error) {
+        res.send(false);
     })
 
-    app.put('/update',(req,res)=>{
+    //ends
+
+});
+
+    //app.put('/update',(req,res)=>{
+      app.put('/update',verifyToken,(req,res)=>{
       console.log(req.body)
       id=req.body._id,
       title = req.body.title,
@@ -101,7 +171,8 @@ app.post('/login', (req, res) => {
      })
    })
    
-app.delete('/remove/:id',(req,res)=>{
+//app.delete('/remove/:id',(req,res)=>{
+  app.delete('/remove/:id',verifyToken,(req,res)=>{
    
      id = req.params.id;
      BookData.findByIdAndDelete({"_id":id})
@@ -144,16 +215,17 @@ app.get('/authors',function(req,res){
 
 })
 
-app.put('/updateauthor',(req,res)=>{
+//app.put('/updateauthor',(req,res)=>{
+  app.put('/updateauthor',verifyToken,(req,res)=>{
   console.log(req.body)
   id=req.body._id,
-  name = req.body.name,
+  authorname = req.body.name,
   age = req.body.age,
   type = req.body.type,
   image = req.body.image
  AuthorData.findByIdAndUpdate({"_id":id},
                               {$set:{
-                              "name":name,
+                              "name":authorname,
                               "age":age,
                               "type":type,
                               "image":image}})
@@ -162,8 +234,8 @@ app.put('/updateauthor',(req,res)=>{
  })
 })
 
-app.delete('/removeauthor/:id',(req,res)=>{
-
+//app.delete('/removeauthor/:id',(req,res)=>{
+  app.delete('/removeauthor/:id',verifyToken,(req,res)=>{
  id = req.params.id;
  AuthorData.findByIdAndDelete({"_id":id})
  .then(()=>{
