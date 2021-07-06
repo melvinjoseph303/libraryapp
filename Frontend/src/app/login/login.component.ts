@@ -11,7 +11,10 @@ import { FormBuilder,Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  user={uname:'',
+  // user={uname:'',
+  // password:''}
+
+  user={username:'',
   password:''}
 
   constructor(private _auth: AuthService,
@@ -28,6 +31,7 @@ export class LoginComponent implements OnInit {
     .subscribe(
       res => {
         localStorage.setItem('token', res.token)
+        localStorage.setItem('role', res.role)
         //this._router.navigate(['/books'])
         this._router.navigate(['/'])
       },
